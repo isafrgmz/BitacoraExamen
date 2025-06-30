@@ -60,7 +60,7 @@ Este código mide la amplitud del sonido captado por un micrófono conectado al 
 const int micPin = A0;
 const int led1 = 9;  
 
-const int sampleWindow = 50; 
+const int sampleWindow = 50;
 unsigned int signalMax = 0;
 unsigned int signalMin = 1023;
 
@@ -75,7 +75,6 @@ void loop() {
   signalMax = 0;
   signalMin = 1023;
 
-  // Leer la señal durante un pequeño periodo
   while (millis() - startMillis < sampleWindow) {
     int sample = analogRead(micPin);
     if (sample < 1023) {
@@ -84,15 +83,13 @@ void loop() {
     }
   }
 
-  int peakToPeak = signalMax - signalMin; // Amplitud del sonido
-  int intensity = map(peakToPeak, 0, 1023, 0, 255); // Convertir a 0–255
+  int peakToPeak = signalMax - signalMin; 
+  int intensity = map(peakToPeak, 0, 1023, 0, 255); 
 
   Serial.print("Amplitud: ");
   Serial.println(peakToPeak);
 
-  // Aplicar intensidad a todos los canales del led
   analogWrite(led1, intensity);
 
-  delay(10); 
+  delay(10); // pausa
 }
-
